@@ -1,29 +1,15 @@
 version: '3'
 services:
-  dns_server:
-    build: dns
-    command: --addn-hosts=/etc/custom_hosts
-    volumes:
-      - ./dns/lista.txt:/etc/custom_hosts:ro
-    networks:
-      my_network:
-        ipv4_address: 192.168.46.4      
-  cliente-firefox:
-    image: kasmweb/firefox:1.14.0
-    ports:
-     - 6901:6901
-    environment:
-      - VNC_PW=abc123.  #Usuario kasm_user
-    dns:
-     - 192.168.46.4
-    networks:
-      my_network:
   cliente:
+    hostname: cliente
     build: cliente
-    dns:
-     - 192.168.46.4
-    networks:
-      my_network:    
+    environment:
+    - DISPLAY=${DISPLAY}
+    volumes:
+    - /tmp/.X11-unix:/tmp/.X11-unix    
+    networks: 
+      my_network:
+        ipv4_address: 192.168.46.150
       
 
 
