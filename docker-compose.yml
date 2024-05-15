@@ -1,5 +1,20 @@
 version: '3'
 services:
+  apache:
+    hostname: apache
+    build: apache
+    ports:
+      - "80:80"
+    networks: 
+      my_network:
+        ipv4_address: 192.168.46.50
+        aliases:
+          - novositio.lan
+    volumes:
+      - ./novositio.lan:/opt/web/novositio.lan
+      - ./apache/tarefa4.conf:/etc/apache2/sites-enabled/tarefa4.conf
+      - ./ssl/novositio.pem:/etc/ssl/certs/novositio.pem
+      - ./ssl/novositio.key:/etc/ssl/private/novositio.key
   cliente:
     hostname: cliente
     build: cliente
